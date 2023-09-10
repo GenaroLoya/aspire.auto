@@ -1,4 +1,12 @@
-# Aspiradora atutomatica
+<head>
+  <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+
+<div class="container">
+  <span class="spanStyle">
+  	Aspiradora atutomatica 
+  </span>
+</div>
 
 Proyecto para simular una aspiradora automatica que limpiara una serie de cuartos, a partir del supuesto de que hay un numero determinado habitaciones, y la posicion de esta es indeterminada asi camo su direccion.
 
@@ -8,11 +16,12 @@ Proyecto para simular una aspiradora automatica que limpiara una serie de cuarto
 </raw>
 
 **Donde:**
-- clean es cambiar un 1 por un cero
+- clear es cambiar un 1 por un cero
 - R es moverse a la derecha
 - L es moverse a la izquierda
 - dirty significa un 1 (habitacion sucia)
-- dirty significa un 0 (habitacion limpia)
+- clean significa un 0 (habitacion limpia)
+- final significa un 2 (indica los extremos de las habitaciones)
 
 ## Codigo (Hecho en golang)
 
@@ -98,6 +107,26 @@ var instructions = []Instruct{
 	{DIRTY, Clearfunc, CLEAR},
 }
 ```
+## Action resolver
+Esta funcion busca en la matriz de instrucciones a partir de un state dado.
+```
+func resolveAction(state EnumState, instructions []Instruct) Instruct {
+
+	for _, ins := range instructions {
+
+		if ins.state == state {
+			return ins
+		}
+	}
+
+	return Instruct{
+		state:         -1,
+		action:        func(pos *int, state EnumState, table *[]EnumState, prevPos int) {},
+		describAction: UNKNOWN,
+	}
+
+}
+```
 
 ### Tabla o cuartos
 Se define un ejemplo para el escenario de la aspiradora, que se conforma del mismo enumerador que define los estados en instruc
@@ -112,4 +141,3 @@ En el testing se incluyen varios casos posibles
 
 ### Running font code
 Para ejecutar sin testing: `go run main.go`
-

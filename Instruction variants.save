@@ -1,0 +1,4 @@
+0 1 L:Clean => R
+0 0 R:Clean => L
+1 2 R:Dirty => Clear
+1 2 L:Dirty => Clear

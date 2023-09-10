@@ -1,0 +1,18 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin: 10px;
+}
+
+.spanStyle {
+    color: rgb(226, 215, 178);
+    font-weight: bold;
+    padding: 5px 10px;
+    border-radius: 5rem;
+    text-align: center;
+    background-color: rgb(13, 20, 37);
+    font-size: 30px;
+}

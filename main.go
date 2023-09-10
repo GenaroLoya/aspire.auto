@@ -58,10 +58,13 @@ func Movefunc(pos *int, state EnumState, table *[]EnumState, prevPos int) {
 			*pos = *pos + 1
 		}
 	}
+
+	fmt.Println("Moving to...", *pos)
 }
 
 func Clearfunc(pos *int, state EnumState, table *[]EnumState, prevPos int) {
 	(*table)[*pos] = CLEAN
+	fmt.Println("Cleaning...", "Pos =>", *pos)
 }
 
 var instructions = []Instruct{
@@ -120,8 +123,8 @@ func resolveAction(state EnumState, instructions []Instruct) Instruct {
 }
 
 func main() {
-	table := []EnumState{DIRTY, DIRTY, DIRTY, DIRTY, DIRTY, DIRTY}
+	table := []EnumState{DIRTY, DIRTY, DIRTY, DIRTY, DIRTY, DIRTY, DIRTY, DIRTY, DIRTY, DIRTY, DIRTY, DIRTY}
 	initPos := 3
-	result, err := aspireLive(table, initPos, TOR)
-	fmt.Println("FINAL: ", result, err)
+	result, _ := aspireLive(table, initPos, TOR)
+	fmt.Println("FINAL: ", result)
 }
