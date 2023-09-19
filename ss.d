@@ -1,4 +1,4 @@
-package main
+package ss
 
 import (
 	"errors"
@@ -51,9 +51,7 @@ var NULLYENTITY = Entity{NULLY, map[int]EnumEntity{}}
 
 var title = color.New(color.FgCyan, color.Bold)
 var subtitle = color.New(color.FgGreen, color.Bold)
-var textBlue = color.New(color.FgBlue, color.Bold)
-var textRed = color.New(color.FgHiRed)
-var textYellow = color.New(color.FgYellow)
+var text = color.New(color.FgWhite, color.Bold)
 
 func main() {
 	animalsRiver(EntityList)
@@ -63,50 +61,25 @@ func animalsRiver(list []Entity) {
 	var EntityAside []Entity
 	i := 0
 
-	for i < 6 {
+	for true {
 		title.Println("Iteración", i)
 		subtitle.Println("Ida")
-		if checkNecessaryMove(list) == true {
-			checkRemoveInList(&list, &EntityAside)
-		} else {
-			textBlue.Println("No hay necesidad de mover")
-		}
-		textBlue.Println("Side:", list)
-		textBlue.Println("Other side:", EntityAside)
+		checkRemoveInList(&list, &EntityAside)
+		text.Println("Side:", list)
+		text.Println("Other side:", EntityAside)
 		subtitle.Println("Vuelta")
 		checkRemoveInList(&EntityAside, &list)
-		textBlue.Println("Side:", list)
-		textBlue.Println("Other side:", EntityAside)
+		text.Println("Side:", list)
+		text.Println("Other side:", EntityAside)
 
 		if len(list) == 0 {
 			break
 		}
-
 		i++
 	}
 }
 
-func checkNecessaryMove(side []Entity) bool {
-	var errCount int = 0
-
-	for i, entity := range side {
-		if entity.id != NULLY {
-			err, result := checkRemove(i, &side)
-			if err == nil && result == false {
-				errCount++
-			}
-		}
-	}
-
-	if errCount == 0 {
-		return false
-	}
-
-	return true
-}
-
 func checkRemoveInList(side *[]Entity, otherSide *[]Entity) {
-
 	for i, entity := range *side {
 		if entity.id != NULLY {
 			err, result := checkRemove(i, side)
@@ -133,10 +106,6 @@ func checkRemove(pos int, entities *[]Entity) (error, bool) {
 		return errors.New("No hay entidades para verificar"), false
 	}
 
-	if len(*entities) == 1 {
-		return nil, false
-	}
-
 	if pos < 0 || pos >= len(*entities) {
 		return errors.New("Posición inválida"), false
 	}
@@ -146,11 +115,8 @@ func checkRemove(pos int, entities *[]Entity) (error, bool) {
 
 	entitiesCp[pos] = NULLYENTITY
 
-	textRed.Println("Verificando", entitiesCp)
-
-	for i, entity := range entitiesCp {
-		if pos != i {
-			textYellow.Println(entity, "Escaneando")
+	for _, entity := range entitiesCp {
+		if entity.id != NULLY {
 			err, result := entity.checkRestrictions(&entitiesCp)
 
 			if err == nil && result == false {
@@ -161,3 +127,30 @@ func checkRemove(pos int, entities *[]Entity) (error, bool) {
 
 	return nil, true
 }
+
+// func checkinsert(pos int, entities *[]Entity) (error, bool) {
+// 	if len(*entities) == 0 {
+// 		return errors.New("No hay entidades para verificar"), false
+// 	}
+
+// 	if pos < 0 || pos >= len(*entities) {
+// 		return errors.New("Posición inválida"), false
+// 	}
+
+// 	entitiesCp := make([]Entity, len(*entities))
+// 	copy(entitiesCp, *entities)
+
+// 	entitiesCp[pos] = NULLYENTITY
+
+// 	for _, entity := range entitiesCp {
+// 		if entity.id != NULLY {
+// 			err, result := entity.checkRestrictions(&entitiesCp)
+
+// 			if err == nil && result == false {
+// 				return err, false
+// 			}
+// 		}
+// 	}
+
+// 	return nil, true
+// }
