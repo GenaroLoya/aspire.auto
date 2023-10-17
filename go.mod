@@ -3,7 +3,7 @@ module main.go
 go 1.21.0
 
 require (
-	github.com/agtorre/gocolorize v1.0.0 // indirect
+	github.com/fatih/color v1.15.0 // indirect
 	github.com/fsnotify/fsnotify v1.4.9 // indirect
 	github.com/go-logr/logr v1.2.4 // indirect
 	github.com/go-task/slim-sprig v0.0.0-20230315185526-52ccab3ef572 // indirect
