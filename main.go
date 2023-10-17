@@ -84,6 +84,7 @@ func aspireLive(table []EnumState, initPos int, initDir EnumDir) ([]EnumState, e
 	pos := initPos
 	var prevPos int = pos - int(initDir)
 	movs := int(math.Abs(float64(initPos) - float64(initDir)*float64(len(table))))
+	fmt.Println("MOVES", movs)
 	beforePos := pos
 
 	for true {
@@ -123,7 +124,7 @@ func resolveAction(state EnumState, instructions []Instruct) Instruct {
 }
 
 func main() {
-	table := []EnumState{DIRTY, DIRTY, DIRTY, DIRTY, DIRTY, DIRTY, DIRTY, DIRTY, DIRTY, DIRTY, DIRTY, DIRTY}
+	table := []EnumState{DIRTY, DIRTY, DIRTY, CLEAN, DIRTY}
 	initPos := 3
 	result, _ := aspireLive(table, initPos, TOR)
 	fmt.Println("FINAL: ", result)

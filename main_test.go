@@ -131,6 +131,46 @@ var _ = Describe("Aspires testing", func() {
 			Expect(err).NotTo(HaveOccurred())
 			Expect(expectZero).To(Equal(true))
 		})
+
+		It("should return all zero in partially Dirty table when init pos is any and init dir is to left", func() {
+			table := []EnumState{DIRTY, DIRTY, DIRTY, CLEAN, DIRTY}
+			initPos := 3
+			initDir := TOR
+			result, err := aspireLive(table, initPos, initDir)
+
+			expectZero := true
+
+			fmt.Println(result)
+
+			for _, in := range result {
+				if in == DIRTY {
+					expectZero = false
+				}
+			}
+
+			Expect(err).NotTo(HaveOccurred())
+			Expect(expectZero).To(Equal(true))
+		})
+
+		It("should return all zero in partially Dirty table when init pos is any and init dir is to left", func() {
+			table := []EnumState{DIRTY, DIRTY, DIRTY}
+			initPos := 3
+			initDir := TOR
+			result, err := aspireLive(table, initPos, initDir)
+
+			expectZero := true
+
+			fmt.Println(result)
+
+			for _, in := range result {
+				if in == DIRTY {
+					expectZero = false
+				}
+			}
+
+			Expect(err).NotTo(HaveOccurred())
+			Expect(expectZero).To(Equal(true))
+		})
 	})
 
 	Describe("Testing resolveAction", func() {
